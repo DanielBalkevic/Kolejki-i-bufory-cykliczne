@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ASD1-M1-08 — Laboratorium kolejek</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="eyebrow">ASD1 · MINI-PROJEKT M1 · 2026/2027</div>
+  <h1>Laboratorium kolejek</h1>
+  <p>Interaktywne porównanie kolejki z przesuwaniem, bufora cyklicznego i deque.</p>
+  <div class="chips"><span>FIFO</span><span>head / tail / size</span><span>Bez instalacji</span></div>
+</header>
+<main>
+  <section class="panel">
+    <div class="section-heading"><div><span class="eyebrow">01 / WYBIERZ STRUKTURĘ</span><h2>Tryb pracy</h2></div></div>
+    <div class="mode-tabs">
+      <button class="mode-btn" data-mode="shifting" aria-pressed="false">Kolejka z przesuwaniem</button>
+      <button class="mode-btn" data-mode="circular" aria-pressed="true">Kolejka cykliczna</button>
+      <button class="mode-btn" data-mode="deque" aria-pressed="false">Deque</button>
+    </div>
+    <div class="controls-grid">
+      <label>Pojemność
+        <select id="capacity"><option>4</option><option selected>6</option><option>8</option><option>12</option><option>16</option></select>
+      </label>
+      <label>Wartość do dodania (−99…99)
+        <input id="value" type="number" min="-99" max="99" step="1" value="40">
+      </label>
+      <label class="wide">Własne dane początkowe
+        <input id="initialValues" value="10, 20, 30" aria-describedby="valuesHelp">
+        <small id="valuesHelp">Liczby całkowite oddziel przecinkiem lub spacją. Zastosowanie danych rozpoczyna nowy przebieg.</small>
+      </label>
+      <div class="button-row wide"><button id="applyValues" class="primary">Zastosuj dane / nowy przebieg</button></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading"><div><span class="eyebrow">02 / WYKONANIE</span><h2 id="modeTitle">Kolejka cykliczna</h2></div><span class="step-badge">Kroków: <b id="stepCount">0</b></span></div>
+    <div class="stats">
+      <div><span>Pojemność</span><b id="capacityLabel">6</b></div>
+      <div><span>Rozmiar (size)</span><b id="sizeLabel">0</b></div>
+      <div><span>head</span><b id="headLabel">0</b></div>
+      <div><span>tail</span><b id="tailLabel">0</b></div>
+      <div><span>Pusta?</span><b id="emptyState">TAK</b></div>
+      <div><span>Pełna?</span><b id="fullState">NIE</b></div>
+    </div>
+    <div class="visual-block"><h3>Kolejność logiczna</h3><p class="hint">Od pierwszego elementu do ostatniego — niezależnie od fizycznego indeksu.</p><div id="logical" class="logical"></div></div>
+    <div class="visual-block"><h3>Komórki fizyczne tablicy</h3><p class="hint">HEAD wskazuje pierwszy element, TAIL — miejsce następnego zapisu po prawej stronie.</p><div id="physical" class="physical"></div></div>
+    <div class="button-row operation-buttons">
+      <button id="opLeft">Usuń z początku</button><button id="opRight" class="primary">Dodaj na końcu</button>
+      <button id="opLeftPush" hidden>Dodaj z lewej</button><button id="opRightPop" hidden>Usuń z prawej</button>
+    </div>
+    <div id="dequeActions" class="hint" hidden>Deque umożliwia dodawanie i usuwanie elementów z obu końców.</div>
+    <div class="button-row">
+      <button id="step" class="primary">Krok scenariusza</button><button id="play">▶ Start</button><button id="reset">Reset do danych początkowych</button>
+      <label class="speed">Tempo <input id="speed" type="range" min="300" max="1800" step="150" value="900"><span id="speedLabel">0.9 s</span></label>
+    </div>
+    <p id="status" class="status" role="status">Wybierz scenariusz lub wykonaj operację.</p>
+  </section>
+
+  <section class="two-col">
+    <section class="panel">
+      <span class="eyebrow">03 / WYJAŚNIENIE</span><h2>Jak działa algorytm?</h2>
+      <ol id="pseudo" class="pseudo"></ol>
+      <h3>Liczniki wykonania</h3><div id="counters" class="counters"></div>
+      <p class="hint">Liczniki dotyczą badanego algorytmu, a nie rysowania animacji. W kolejce z przesuwaniem dequeue przesuwa elementy; w kolejce cyklicznej nie trzeba ich przesuwać.</p>
+    </section>
+    <section class="panel">
+      <span class="eyebrow">04 / HISTORIA</span><h2>Ostatnie operacje</h2>
+      <ol id="history" class="history"></ol>
+    </section>
+  </section>
+
+  <section class="panel">
+    <span class="eyebrow">05 / GOTOWE PRZYKŁADY</span><h2>Scenariusze demonstracyjne</h2>
+    <p>Wybierz scenariusz, a potem naciskaj „Krok scenariusza” lub „Start”.</p>
+    <div class="preset-grid">
+      <button class="preset" data-preset="wrap"><b>01 · Zawijanie</b><span>Usuń elementy, a potem dodawaj nowe.</span></button>
+      <button class="preset" data-preset="full"><b>02 · Pełna struktura</b><span>Sprawdź, czy próba dodania zmienia dane.</span></button>
+      <button class="preset" data-preset="ends"><b>03 · Dwa końce</b><span>Prześledź operacje deque z lewej i prawej.</span></button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <span class="eyebrow">06 / PORÓWNANIE</span><h2>FIFO: przesuwanie kontra cykliczna</h2>
+    <p>Scenariusz zgodny z kartą: zapełnij strukturę, usuń połowę elementów i dodaj tyle samo nowych. Wykonaj symulację dla pojemności 4, 8 i 16.</p>
+    <button id="compare" class="primary">Uruchom porównanie</button>
+    <div class="table-wrap"><table><thead><tr><th>Pojemność</th><th>Metoda</th><th>Elementy na końcu</th><th>Odczyty</th><th>Zapisy</th><th>Przesunięcia</th></tr></thead><tbody id="compareRows"></tbody></table></div>
+    <p id="compareNote" class="hint"></p>
+    <p><b>Interpretacja:</b> w tej implementacji dodanie na końcu ma koszt O(1) dla obu metod. Usuwanie z kolejki z przesuwaniem ma koszt O(n), a usuwanie z cyklicznej O(1). Obie tablice zajmują O(pojemności) pamięci.</p>
+  </section>
+
+  <section class="panel">
+    <span class="eyebrow">07 / SPRAWDŹ SIĘ</span><h2>Krótki quiz</h2>
+    <p id="questionState" class="question-state">Aktualny stan kolejki.</p>
+    <div class="quiz-question"><label>1. Co pozwala odróżnić pustą od pełnej kolejki, gdy head = tail?<select id="quiz1"><option value="">Wybierz odpowiedź…</option><option value="head">Sam wskaźnik head</option><option value="size">Zmienna size</option><option value="color">Kolor komórki</option></select></label></div>
+    <div class="quiz-question"><label>2. Jak zawinąć indeks po dojściu do końca tablicy?<select id="quiz2"><option value="">Wybierz odpowiedź…</option><option value="plus">Dodać 1 bez ograniczenia</option><option value="mod">Użyć modulo pojemności</option><option value="reset">Wyczyścić całą tablicę</option></select></label></div>
+    <div class="quiz-question"><label>3. Co zrobić, gdy struktura jest pełna?<select id="quiz3"><option value="">Wybierz odpowiedź…</option><option value="overwrite">Nadpisać najstarszy element</option><option value="reject">Odrzucić dodanie bez zmiany danych</option><option value="shift">Zawsze przesunąć head</option></select></label></div>
+    <button id="checkQuiz" class="primary">Sprawdź odpowiedzi</button><p id="quizResults" class="status" aria-live="polite"></p>
+  </section>
+
+  <section class="panel about">
+    <span class="eyebrow">08 / INFORMACJE</span><h2>Cel i ograniczenia</h2>
+    <p><b>Kolejka FIFO:</b> pierwszy dodany element jest pierwszym usuwanym. <b>Bufor cykliczny:</b> indeksy zawijają się modulo pojemność. <b>Deque:</b> pozwala wykonywać operacje na obu końcach.</p>
+    <p>Program jest demonstracją edukacyjną. Nie korzysta z płatnych API, kont ani bibliotek zewnętrznych. Kod algorytmów znajduje się w <code>queue-core.js</code>; testy są w folderze <code>tests</code>.</p>
+  </section>
+  <footer>ASD1-M1-08 · Wersja demonstracyjna · Autor: Daniel Balkevic · indeks 94035.</footer>
+</main>
+<script src="queue-core.js"></script><script src="app.js"></script>
+</body></html>
