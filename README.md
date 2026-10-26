@@ -13,14 +13,11 @@ Aplikacja pokazuje różnice między kolejką z przesuwaniem, kolejką cykliczn�
 2. Otwórz `index.html` w aktualnej przeglądarce. Nie potrzeba instalacji ani konta.
 3. Wybierz tryb, pojemność i dane. Użyj przycisków operacji, „Krok scenariusza” lub „Start”.
 
-Interfejs korzysta z `queue-core.js` oraz `app.js`. Arkusz stylów znajduje się w `style.css`.
-
 ## Uruchomienie testów
 Wymagany jest Node.js 18 lub nowszy. W katalogu projektu uruchom:
 ```bash
 node --test tests/queue-core.test.js
 ```
-Nie wpisuj do raportu, że testy przeszły, dopóki nie uruchomisz ich lokalnie. Zapisz rzeczywisty wynik.
 
 ## Pliki
 - `index.html` — interfejs aplikacji.
