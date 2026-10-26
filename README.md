@@ -41,12 +41,3 @@ Licznik odczytów i zapisów dotyczy dostępu do komórek/elementów w implement
 
 ## Wykorzystanie AI i wkład własny
 Sztuczna inteligencja stanowi kluczowy element działania agenta, umożliwiając mu interpretowanie poleceń i wspieranie realizacji zadań. Podczas tworzenia projektu najważniejszy był mój wkład własny w konfigurację, integrację poszczególnych elementów oraz testowanie i rozwijanie rozwiązania.
-
-## Lista przed oddaniem
-- [ ] Uzupełniono autora i numer indeksu.
-- [ ] Uruchomiono aplikację w przeglądarce.
-- [ ] Uruchomiono testy Node.js i zapisano rzeczywisty wynik.
-- [ ] Sprawdzono trzy tryby i przypadki brzegowe.
-- [ ] Dodano własne zrzuty ekranu.
-- [ ] Uzupełniono prezentację i raport własnymi wynikami.
-- [ ] Repozytorium GitHub jest opublikowane i link dodano w Dzienniku.
